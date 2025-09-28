@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Sematary</title>
+<style>
+body { background: #0d0d0d; color: #f5f5f5; font-family: 'Roboto Mono', monospace; margin: 0; }
+header { text-align: center; padding: 50px 0; background: #111; }
+header h1 { font-family: 'Creepster', cursive; color: #ff0000; font-size: 48px; }
+nav { display: flex; justify-content: center; gap: 30px; margin: 20px 0; }
+nav a { color: #f5f5f5; text-decoration: none; font-weight: bold; font-size: 18px; }
+nav a:hover { color: #ff0000; }
+section { padding: 40px; max-width: 900px; margin: auto; }
+.gallery img { width: 100%; max-width: 300px; margin: 10px; border: 2px solid #ff0000; }
+.audio-player { display: flex; flex-direction: column; gap: 20px; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Roboto+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <h1>Sematary Grave Man</h1>
+    <p>Fan - site</p>
+</header>
+
+<nav>
+    <a href="#bio">biography</a>
+    <a href="#music">popular music</a>
+    <a href="#gallery">Gallery</a>
+</nav>
+
+<section id="bio">
+    <h2>biography</h2>
+    <p>Zane Steckler (born December 22, 2000[1], Granite Bay[vd], California), also known as Sematary and DJ Sorrow, is an American rapper, songwriter, and music producer. In 2019, he began releasing music and founded the rap collective Haunted Mound. Throughout his career, Sematary has released eight mixtapes and three mini-albums[2]. A distinctive feature of his music is the use of overdriven sound and distortion, inspired by witch house and black metal, which, combined with his music videos, which are distorted, grainy, and use saturated colors to mimic videos that have been affected by lossy compression, have earned him a cult following in the online space.</p>
+</section>
+
+<section id="music">
+    <h2>Музыка</h2>
+    <div class="audio-player" id="tracks"></div>
+</section>
+
+<section id="gallery">
+    <h2>Галерея</h2>
+    <div class="gallery" id="photos"></div>
+</section>
+
+<script>
+fetch('data/content.json')
+.then(response => response.json())
+.then(data => {
+    const photosDiv = document.getElementById('photos');
+    data.photos.forEach(url => {
+        const img = document.createElement('img');
+        img.src = url;
+        photosDiv.appendChild(img);
+    });
+
+    const tracksDiv = document.getElementById('tracks');
+    data.tracks.forEach(track => {
+        const a = document.createElement('a');
+        a.href = track.url;
+        a.target = "_blank";
+        a.textContent = track.title;
+        a.style.color = "#ff0000";
+        tracksDiv.appendChild(a);
+    });
+});
+</script>
+
+</body>
+</html>
